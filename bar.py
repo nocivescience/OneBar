@@ -20,7 +20,10 @@ class Bar(Scene):
         value_cycle=list(it.islice(it.cycle(values),0,200))
         np.random.shuffle(value_cycle)
         for value in value_cycle:
-            self.play(ApplyMethod(value_tracker.set_value,value),run_time=.1)
+            if value>6:
+                self.play(ApplyMethod(value_tracker.set_value,value), bar.animate.set_fill(RED, opacity=1),run_time=.1)
+            else:
+                self.play(ApplyMethod(value_tracker.set_value,value),bar.animate.set_fill(RED, opacity=0) ,run_time=.1)
         self.wait()
     def get_bar(self,line):
         bar=Rectangle(height=.3,width=line.x_range[-1]*2)
